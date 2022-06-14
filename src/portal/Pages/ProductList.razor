@@ -1,0 +1,65 @@
+﻿@page "/productlist"
+@using System.Diagnostics.CodeAnalysis
+@using portal.GatewayServices
+@using portal.ViewModels
+
+@inject ProductService gatewayService
+
+<PageTitle>Product List</PageTitle>
+
+<h1>Product List</h1>
+
+<Table TItem="ProductItem" @ref="table" IsStriped="true" IsBordered="true" IsMultipleSelect=true ShowToolbar="true"
+    ShowDefaultButtons=true ShowDeleteButton=false AddButtonText="Add" EditButtonText="Edit" RefreshButtonText="Refresh"
+    OnQueryAsync="@OnQueryAsync" OnSaveAsync="@OnSaveAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.IsExempted" />
+    </TableColumns>
+</Table>
+
+@code {
+    private Table<ProductItem> table;
+
+    [NotNull]
+    private List<ProductItem>? Items { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await OnRefresh();
+    }
+
+    private async Task OnRefresh() => Items = await gatewayService.GetProductsAsync();
+
+    private Task<QueryData<ProductItem>> OnQueryAsync(QueryPageOptions options)
+    {
+        var items = Items?.ToList();
+        return Task.FromResult(new QueryData<ProductItem>
+        {
+            Items = items ?? new List<ProductItem>(),
+        });
+    }
+
+    private async Task<bool> OnSaveAsync(ProductItem item, ItemChangedType changedType)
+    {
+        switch (changedType)
+        {
+            case ItemChangedType.Add:
+                item.Id = Guid.NewGuid();
+                await gatewayService.AddProductAsync(item);
+                Items.Add(item);
+                break;
+            case ItemChangedType.Update:
+                var original = Items.FirstOrDefault(p => p.Id == item.Id);
+                if (original != null)
+                {
+                    await gatewayService.UpdateProductAsync(item);
+                    original.Name = item.Name;
+                    original.IsExempted = item.IsExempted;
+                }
+                break;
+        }
+        return true;
+    }
+}

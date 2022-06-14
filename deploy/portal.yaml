@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poc-portal
+  namespace: poc
+  labels:
+    app.kubernetes.io/name: portal
+    app.kubernetes.io/part-of: poc
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8090
+  selector:
+    app: poc-portal
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-portal
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-portal
+  template:
+    metadata:
+      labels:
+        app: poc-portal
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "portal"
+        dapr.io/app-port: "8090"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-portal
+        image: {{acraddress}}/daprapps-poc-portal:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8090
+        env:
+        - name: ASPNETCORE_ENVIRONMENT 
+          value: Development

@@ -1,0 +1,124 @@
+﻿@page "/limitation"
+@using System.Diagnostics.CodeAnalysis
+@using portal.GatewayServices
+@using portal.ViewModels
+
+@inject ProductService productService
+@inject LimitationService limitationService
+
+<PageTitle>Limitation</PageTitle>
+
+<h1>Limitation</h1>
+
+<Table TItem="LimitationItem" Items="@Items" @ref="table"
+	   IsMultipleSelect=true IsStriped="true" IsBordered="true"
+	   ShowToolbar="true" ShowDefaultButtons=false ShowRefresh=false>
+	<TableToolbarTemplate>
+		<TableToolbarButton TItem="LimitationItem" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="Select Product ..."
+							OnClickCallback="@ShowDialog" />
+	</TableToolbarTemplate>
+	<TableColumns>
+		<TableColumn @bind-Field="@context.CompanyName" />
+	</TableColumns>
+	<DetailRowTemplate>
+		<Table TItem="LimitationDetailItem" @ref="tableDetail"
+			   Items="@context.Details"
+			   ShowToolbar=true ShowDefaultButtons=true ShowExtendButtons=true
+			   ShowAddButton=false ShowDeleteButton=false
+			   EditMode=EditMode.InCell OnSaveAsync="@OnSaveLimitationAsync"
+			   IsBordered="true">
+			<TableColumns Context="scope">
+				<TableColumn @bind-Field="@scope.ProductName" Readonly=true />
+				<TableColumn @bind-Field="@scope.ProductAmount" />
+			</TableColumns>
+		</Table>
+	</DetailRowTemplate>
+</Table>
+
+<Modal @ref="dialog">
+	<ModalDialog Title="Select Product" IsCentered="true">
+		<BodyTemplate>
+			<Table TItem="ProductItem" Items="@ProductItems"
+				   @bind-SelectedRows="@SelectedProducts"
+				   IsStriped="true" ClickToSelect="true" IsMultipleSelect="true"
+				   HeaderStyle="TableHeaderStyle.Light">
+				<TableColumns>
+					<TableColumn @bind-Field="@context.Name" />
+				</TableColumns>
+			</Table>
+		</BodyTemplate>
+		<FooterTemplate>
+			<Button Text="确定" Icon="fa fa-check-square-o" OnClick="@OnConfirm" />
+		</FooterTemplate>
+	</ModalDialog>
+</Modal>
+
+@code {
+	[NotNull]
+	private Table<LimitationItem> table;
+
+	[NotNull]
+	private Table<LimitationDetailItem> tableDetail;
+
+	[NotNull]
+	private Modal? dialog;
+
+	[NotNull]
+	private List<LimitationItem> Items { get; set; } = new List<LimitationItem>();
+
+	[NotNull]
+	private List<ProductItem> ProductItems { get; set; } = new List<ProductItem>();
+
+	[NotNull]
+	private List<ProductItem> SelectedProducts { get; set; } = new List<ProductItem>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		await OnRefresh();
+	}
+
+	private async Task OnRefresh()
+	{
+		Items = await limitationService.GetLimitationsAsync();
+		ProductItems = await productService.GetProductsAsync();
+	}
+
+	private LimitationItem SelectedItem;
+	private async Task ShowDialog(IEnumerable<LimitationItem> items)
+	{
+		var limitations = items.ToList();
+		if (limitations.Count == 0 || limitations.Count > 1) return;
+		SelectedItem = limitations[0];
+		await dialog.Toggle();
+	}
+
+	private async Task OnConfirm()
+	{
+		await dialog.Toggle();
+		var items = new List<LimitationDetailItem>();
+		foreach (var product in SelectedProducts)
+		{
+			var original = SelectedItem.Details.FirstOrDefault(p => p.ProductId == product.Id);
+			items.Add(new LimitationDetailItem
+				{
+					ProductId = product.Id,
+					ProductName = product.Name,
+					ProductAmount = original == null ? 0 : original.ProductAmount,
+				});
+		};
+		SelectedItem.Details = items;
+		await limitationService.SaveLimitationAsync(SelectedItem);
+	}
+
+	private async Task<bool> OnSaveLimitationAsync(LimitationDetailItem item, ItemChangedType changedType)
+	{
+		var oldItem = table.SelectedRows[0].Details.FirstOrDefault(i => i.ProductId == item.ProductId);
+		if (oldItem != null)
+		{
+			oldItem.ProductAmount = item.ProductAmount;
+		}
+		await limitationService.SaveLimitationAsync(table.SelectedRows[0]);
+		return true;
+	}
+}

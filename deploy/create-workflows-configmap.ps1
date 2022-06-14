@@ -1,0 +1,1 @@
+kubectl create configmap workflows -n poc --from-file ../workflows

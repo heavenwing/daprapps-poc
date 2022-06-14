@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poc-gateway
+  namespace: poc
+  labels:
+    app.kubernetes.io/name: gateway
+    app.kubernetes.io/part-of: poc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8091
+  selector:
+    app: poc-gateway
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-gateway
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-gateway
+  template:
+    metadata:
+      labels:
+        app: poc-gateway
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "gateway"
+        dapr.io/app-port: "8091"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-gateway
+        image: {{acraddress}}/daprapps-poc-gateway:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8091

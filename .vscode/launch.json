@@ -1,0 +1,235 @@
+{
+    "configurations": [
+        // {
+        //     "name": ".NET Core Launch-godownactor(8086)",
+        //     "type": "coreclr",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/src/godownactor/bin/Debug/net6.0/godownactor.dll",
+        //     "args": [],
+        //     "cwd": "${workspaceFolder}/src/godownactor",
+        //     "stopAtEntry": false,
+        //     "console": "internalConsole"
+        // },
+        {
+            "name": ".NET Core Launch-inventory(8084)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/inventory/bin/Debug/net6.0/inventory.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/inventory",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8084",
+                "DAPR_HTTP_PORT": "3504",
+                "DAPR_GRPC_PORT": "10004"
+            }
+        },
+        {
+            "name": ".NET Core Launch-portal(8090)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/portal/bin/Debug/net6.0/portal.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/portal",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8090",
+                "DAPR_HTTP_PORT": "3510",
+                "DAPR_GRPC_PORT": "10010"
+            }
+        },
+        {
+            "name": ".NET Core Launch-godown(8083)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/godown/bin/Debug/net6.0/godown.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/godown",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8083",
+                "DAPR_HTTP_PORT": "3503",
+                "DAPR_GRPC_PORT": "10003"
+            }
+        },
+        {
+            "name": ".NET Core Launch-gateway(8091)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/gateway/bin/Debug/net6.0/gateway.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/gateway",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8091",
+                "DAPR_HTTP_PORT": "3511",
+                "DAPR_GRPC_PORT": "10011"
+            }
+        },
+        {
+            "name": ".NET Core Launch-workflowengine(8200) with Dapr(3520)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "workflowengine-daprd-debug",
+            "postDebugTask": "workflowengine-daprd-down",
+            "program": "${workspaceFolder}/src/workflowengine/bin/Debug/net6.0/workflowengine.dll",
+            "args": [
+                "--workflows-path",
+                "${workspaceFolder}/workflows"
+            ],
+            "cwd": "${workspaceFolder}/src/workflowengine",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": ".NET Core Launch-gateway(8091) with Dapr(3511)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "gateway-daprd-debug",
+            "postDebugTask": "gateway-daprd-down",
+            "program": "${workspaceFolder}/src/gateway/bin/Debug/net6.0/gateway.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/gateway",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8091"
+            }
+        },
+        {
+            "name": ".NET Core Launch-portal(8090) with Dapr(3510)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "portal-daprd-debug",
+            "postDebugTask": "portal-daprd-down",
+            "program": "${workspaceFolder}/src/portal/bin/Debug/net6.0/portal.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/portal",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8090"
+            }
+        },
+        {
+            "name": ".NET Core Launch-approval(8085) with Dapr(3505)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "approval-daprd-debug",
+            "postDebugTask": "approval-daprd-down",
+            "program": "${workspaceFolder}/src/approval/bin/Debug/net6.0/approval.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/approval",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8085"
+            }
+        },
+        {
+            "name": ".NET Core Launch-inventory(8084) with Dapr(3504)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "inventory-daprd-debug",
+            "postDebugTask": "inventory-daprd-down",
+            "program": "${workspaceFolder}/src/inventory/bin/Debug/net6.0/inventory.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/inventory",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8084"
+            }
+        },
+        {
+            "name": ".NET Core Launch-godown(8083) with Dapr(3503)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "godown-daprd-debug",
+            "postDebugTask": "godown-daprd-down",
+            "program": "${workspaceFolder}/src/godown/bin/Debug/net6.0/godown.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/godown",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "env": {
+                "ASPNETCORE_URLS": "http://+:8083"
+            }
+        },
+        // {
+        //     "name": ".NET Core Launch-godownactor(8086) with Dapr(3506)",
+        //     "type": "coreclr",
+        //     "request": "launch",
+        //     "preLaunchTask": "godownactor-daprd-debug",
+        //     "postDebugTask": "godownactor-daprd-down",
+        //     "program": "${workspaceFolder}/src/godownactor/bin/Debug/net6.0/godownactor.dll",
+        //     "args": [],
+        //     "cwd": "${workspaceFolder}/src/godownactor",
+        //     "stopAtEntry": false,
+        //     "console": "internalConsole"
+        // },
+        {
+            "type": "java",
+            "name": "Spring Boot-basicsetting(8082) with Dapr(3502)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "daprapps.poc.basicsetting.BasicsettingApplication",
+            "projectName": "basicsetting",
+            "args": "",
+            "preLaunchTask": "basicsetting-daprd-debug",
+            "postDebugTask": "basicsetting-daprd-down"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-basicinfo(8081) with Dapr(3501)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "daprapps.poc.basicinfo.BasicinfoApplication",
+            "projectName": "basicinfo",
+            "args": "",
+            "preLaunchTask": "basicinfo-daprd-debug",
+            "postDebugTask": "basicinfo-daprd-down"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-old(8080) with Dapr(3500)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "daprapps.poc.old.OldApplication",
+            "projectName": "old",
+            "args": "",
+            "preLaunchTask": "old-daprd-debug",
+            "postDebugTask": "old-daprd-down"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug All Projects",
+            "configurations": [
+                "Spring Boot-old(8080) with Dapr(3500)",
+                "Spring Boot-basicinfo(8081) with Dapr(3501)",
+                "Spring Boot-basicsetting(8082) with Dapr(3502)",
+                ".NET Core Launch-godown(8083) with Dapr(3503)",
+                ".NET Core Launch-inventory(8084) with Dapr(3504)",
+                ".NET Core Launch-approval(8085) with Dapr(3505)",
+                ".NET Core Launch-portal(8090) with Dapr(3510)",
+                ".NET Core Launch-gateway(8091) with Dapr(3511)",
+                ".NET Core Launch-workflowengine(8200) with Dapr(3520)"
+            ]
+        },
+        {
+            "name": "Debug Portal with Approval",
+            "configurations": [
+                ".NET Core Launch-approval(8085) with Dapr(3505)",
+                ".NET Core Launch-portal(8090) with Dapr(3510)"
+            ]
+        }
+    ],
+}

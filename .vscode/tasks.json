@@ -1,0 +1,256 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-workflowengine",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/workflowengine/workflowengine.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-gateway",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/gateway/gateway.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-portal",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/portal/portal.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-inventory",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/inventory/inventory.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-godown",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/godown/godown.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-approval",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/approval/approval.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-godownactor",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/godownactor/godownactor.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "appId": "old",
+            "appProtocol": "http",
+            "appPort": 8080,
+            "httpPort": 3499,
+            "metricsPort": 9090,
+            "grpcPort": 10000,
+            "componentsPath": "./components/local",
+            "label": "old-daprd-debug",
+            "type": "daprd"
+        },
+        {
+            "appId": "old",
+            "label": "old-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "basicinfo",
+            "appProtocol": "http",
+            "appPort": 8081,
+            "httpPort": 3501,
+            "metricsPort": 9091,
+            "grpcPort": 10001,
+            "componentsPath": "./components/local",
+            "label": "basicinfo-daprd-debug",
+            "type": "daprd"
+        },
+        {
+            "appId": "basicinfo",
+            "label": "basicinfo-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "basicsetting",
+            "appProtocol": "http",
+            "appPort": 8082,
+            "httpPort": 3502,
+            "metricsPort": 9092,
+            "grpcPort": 10002,
+            "componentsPath": "./components/local",
+            "label": "basicsetting-daprd-debug",
+            "type": "daprd"
+        },
+        {
+            "appId": "basicsetting",
+            "label": "basicsetting-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "godown",
+            "appProtocol": "http",
+            "appPort": 8083,
+            "httpPort": 3503,
+            "metricsPort": 9093,
+            "grpcPort": 10003,
+            "componentsPath": "./components/local",
+            "label": "godown-daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build-godown"
+        },
+        {
+            "appId": "godown",
+            "label": "godown-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "inventory",
+            "appProtocol": "http",
+            "appPort": 8084,
+            "httpPort": 3504,
+            "metricsPort": 9094,
+            "grpcPort": 10004,
+            "componentsPath": "./components/local",
+            "label": "inventory-daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build-inventory"
+        },
+        {
+            "appId": "inventory",
+            "label": "inventory-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "approval",
+            "appProtocol": "http",
+            "appPort": 8085,
+            "httpPort": 3505,
+            "metricsPort": 9095,
+            "grpcPort": 10005,
+            "componentsPath": "./components/local",
+            "label": "approval-daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build-approval"
+        },
+        {
+            "appId": "approval",
+            "label": "approval-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "godownactor",
+            "appProtocol": "http",
+            "appPort": 8086,
+            "httpPort": 3506,
+            "metricsPort": 9096,
+            "grpcPort": 10006,
+            "componentsPath": "./components/local",
+            "label": "godownactor-daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build-godownactor"
+        },
+        {
+            "appId": "godownactor",
+            "label": "godownactor-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "portal",
+            "appProtocol": "http",
+            "appPort": 8090,
+            "httpPort": 3510,
+            "metricsPort": 9100,
+            "grpcPort": 10010,
+            "componentsPath": "./components/local",
+            "label": "portal-daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build-portal"
+        },
+        {
+            "appId": "portal",
+            "label": "portal-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "gateway",
+            "appProtocol": "http",
+            "appPort": 8091,
+            "httpPort": 3511,
+            "metricsPort": 9101,
+            "grpcPort": 10011,
+            "componentsPath": "./components/local",
+            "label": "gateway-daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build-gateway"
+        },
+        {
+            "appId": "gateway",
+            "label": "gateway-daprd-down",
+            "type": "daprd-down"
+        },
+        {
+            "appId": "workflowengine",
+            "appProtocol": "grpc",
+            "appPort": 8200,
+            "httpPort": 3500,
+            "metricsPort": 9200,
+            "grpcPort": 10020,
+            "componentsPath": "./components/local",
+            "label": "workflowengine-daprd-debug",
+            "type": "daprd",
+            "dependsOn": "build-workflowengine"
+        },
+        {
+            "appId": "workflowengine",
+            "label": "workflowengine-daprd-down",
+            "type": "daprd-down",
+        }
+    ]
+}

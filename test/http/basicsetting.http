@@ -1,0 +1,110 @@
+### app BizScope/List
+POST http://localhost:8082/api/BizScope/List
+
+### testclient-dapr BizScope/List
+POST http://localhost:3590/v1.0/invoke/basicsetting/method/api/BizScope/List
+
+{}
+
+### gateway-http BizScope/List
+POST http://localhost:8091/api/basicsetting/BizScope/List
+
+{}
+
+### app BizScope/Save for company A
+POST http://localhost:8082/api/BizScope/Save
+Content-Type: application/json
+
+{
+    "bizEntityId":"5d068367-b10a-4e6e-8e04-ea4f0085f179",
+    "productIds":["0f45d369-22e6-4ac7-a83c-0f4b122d0cac"]
+}
+
+### app BizScope/Save for provider A
+POST http://localhost:8082/api/BizScope/Save
+Content-Type: application/json
+
+{
+    "bizEntityId":"0fef67d5-66f7-4e49-b711-2723008716eb",
+    "productIds":["0f45d369-22e6-4ac7-a83c-0f4b122d0cac"]
+}
+
+### testclient-dapr BizScope/Save
+POST http://localhost:3590/v1.0/invoke/basicsetting/method/api/BizScope/Save
+
+{
+    "bizEntityId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3",
+    "productIds":["244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0","AB16283B-FE6C-4E6A-8BA2-04497AD474D0"]
+}
+
+### app BizScope/Save
+POST http://localhost:8082/api/BizScope/GetAllowable
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "providerId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3"
+}
+
+### testclient-dapr BizScope/Save
+POST http://localhost:3590/v1.0/invoke/basicsetting/method/api/BizScope/GetAllowable
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "providerId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3"
+}
+
+### gateway-dapr BizScope/Save
+POST http://localhost:8091/api/basicsetting/BizScope/GetAllowable
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "providerId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3"
+}
+
+### app Limitation/List
+POST http://localhost:8082/api/Limitation/List
+
+### testclient-dapr Limitation/List
+POST http://localhost:3590/v1.0/invoke/basicsetting/method/api/Limitation/List
+
+{}
+
+### app Limitation/Save
+POST http://localhost:8082/api/Limitation/Save
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "details":
+    [
+        {"productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0","amount":100},
+        {"productId":"AB16283B-FE6C-4E6A-8BA2-04497AD474D0","amount":1000}
+    ]
+}
+
+### testclient-dapr Limitation/Save
+POST http://localhost:3590/v1.0/invoke/basicsetting/method/api/Limitation/Save
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "details":
+    [
+        {"productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0","amount":100},
+        {"productId":"AB16283B-FE6C-4E6A-8BA2-04497AD474D0","amount":1000}
+    ]
+}
+
+### app Limitation/GetAmount
+POST http://localhost:8082/api/Limitation/GetAmount
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "productIds":["244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0","AB16283B-FE6C-4E6A-8BA2-04497AD474D0"]
+}
+
+### testclient-dapr Limitation/GetAmount
+POST http://localhost:3590/v1.0/invoke/basicsetting/method/api/Limitation/GetAmount
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "productIds":["244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0","AB16283B-FE6C-4E6A-8BA2-04497AD474D0"]
+}

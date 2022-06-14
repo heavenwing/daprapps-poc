@@ -1,0 +1,242 @@
+{
+  "uuid": "0ffda269-d2fd-4b01-ba30-f46097b57325",
+  "lastMigration": 19,
+  "name": "POC basicinfo API",
+  "endpointPrefix": "api",
+  "latency": 0,
+  "port": 8081,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "4b613b4c-ceec-4166-9c69-1d03e475f795",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Product/List",
+      "responses": [
+        {
+          "uuid": "3ab12c3b-9bef-40e7-a889-ff62892cfbbc",
+          "body": "{\n  \"items\": [\n    {\n      \"id\": \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\",\n      \"name\": \"Product 1\",\n      \"isExempted\": false\n    },\n    {\n      \"id\": \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\",\n      \"name\": \"Product 2\",\n      \"isExempted\": false\n    },\n    {\n      \"id\": \"E392BB36-016B-41B9-8723-8EF2BD4A5DF8\",\n      \"name\": \"Product 3\",\n      \"isExempted\": false\n    },\n    {\n      \"id\": \"FF5E6F03-441F-4181-BD6B-06D2EB5147EA\",\n      \"name\": \"Product 4\",\n      \"isExempted\": true\n    },\n    {\n      \"id\": \"95B2C226-2801-499C-8160-802A3AE67D8A\",\n      \"name\": \"Product 5\",\n      \"isExempted\": true\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9697ea69-cc3a-4baa-99c2-c9ed1716c0b6",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Product/Add",
+      "responses": [
+        {
+          "uuid": "900300f0-e23b-491b-a736-c6ed2c818209",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "c6e40f41-030e-4f34-b9cd-0297856a7597",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Product/Update",
+      "responses": [
+        {
+          "uuid": "936e3359-aa33-4ff8-bc23-d48ba37becc4",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "26b49302-5646-41a5-a5f1-852b500947fe",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Product/GetNames",
+      "responses": [
+        {
+          "uuid": "c2ea9370-acb2-4e22-81b9-39ce63f3536f",
+          "body": "{\n  \"items\": {\n    \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\": \"Product 1\",\n    \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\": \"Product 2\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "9299d8ed-f334-4fdd-a0a3-67fd3a831a5e",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Company/List",
+      "responses": [
+        {
+          "uuid": "43240676-f6e4-43e9-9faa-2f7de05519e5",
+          "body": "{\n  \"items\": [\n    {\n      \"id\": \"922FCA8E-87A5-41D1-BF39-AD9F14F2A947\",\n      \"name\": \"Company A\"\n    },\n    {\n      \"id\": \"6C5062F3-B7EA-40B1-A483-515507706DC4\",\n      \"name\": \"Company B\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "b988ba4e-e34e-4b3a-83c1-1f96c2425d3c",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Company/GetNames",
+      "responses": [
+        {
+          "uuid": "b3d50ec0-1031-4a93-b5e0-876283d0ea64",
+          "body": "{\n  \"items\": {\n    \"922FCA8E-87A5-41D1-BF39-AD9F14F2A947\": \"Company A\",\n    \"6C5062F3-B7EA-40B1-A483-515507706DC4\": \"Company B\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "26a7c6fc-31ab-4812-9200-4223cb98ff78",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Provider/List",
+      "responses": [
+        {
+          "uuid": "d3960f7d-9aed-4e2f-9a4e-9e91878dc9d6",
+          "body": "{\n  \"items\": [\n    {\n      \"id\": \"A723D25E-7FFC-4D82-A719-BC367BDC70C3\",\n      \"name\": \"Provider A\"\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "90d07927-9364-4526-a39f-553c781b5bfa",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Provider/GetNames",
+      "responses": [
+        {
+          "uuid": "2af8bb5e-9971-4eaf-9472-fb3848d877b6",
+          "body": "{\n  \"items\": {\n    \"A723D25E-7FFC-4D82-A719-BC367BDC70C3\": \"Provider A\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  }
+}

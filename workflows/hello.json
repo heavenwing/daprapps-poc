@@ -1,0 +1,83 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Compose": {
+                "inputs": {
+                    "body": "Hello from Logic App workflow running with Dapr!"
+                },
+                "runAfter": {},
+                "type": "Compose"
+            },
+            "Delay": {
+                "inputs": {
+                    "interval": {
+                        "count": "@variables('delaySeconds')",
+                        "unit": "Second"
+                    }
+                },
+                "runAfter": {
+                    "Initialize_variable": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Wait"
+            },
+            "Initialize_variable": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "delaySeconds",
+                            "type": "integer",
+                            "value": "@rand(triggerBody()?['min'],triggerBody()?['max'])"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Compose": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "Response": {
+                "inputs": {
+                    "body": {
+                        "delay": "@variables('delaySeconds')",
+                        "time": "@utcNow()",
+                        "value": "@body('compose')"
+                    },
+                    "statusCode": 200
+                },
+                "runAfter": {
+                    "Delay": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {},
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "properties": {
+                            "max": {
+                                "type": "integer"
+                            },
+                            "min": {
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    }
+}

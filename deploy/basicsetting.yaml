@@ -1,0 +1,58 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: poc-basicsetting
+#   namespace: poc
+#   labels:
+#     app.kubernetes.io/name: basicsetting
+#     app.kubernetes.io/part-of: poc
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - port: 8080
+#     targetPort: 8082
+#   selector:
+#     app: poc-basicsetting
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-basicsetting
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-basicsetting
+  template:
+    metadata:
+      labels:
+        app: poc-basicsetting
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "basicsetting"
+        dapr.io/app-port: "8082"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-basicsetting
+        image: {{acraddress}}/daprapps-poc-basicsetting:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8082
+        env:
+        - name: DBURL
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-conn-mdm_setting
+        - name: DBUSER
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-username
+        - name: DBPWD
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-password

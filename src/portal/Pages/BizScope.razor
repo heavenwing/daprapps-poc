@@ -1,0 +1,112 @@
+﻿@page "/bizscope"
+@using System.Diagnostics.CodeAnalysis
+@using portal.GatewayServices
+@using portal.ViewModels
+
+@inject ProductService productService
+@inject BizScopeService bizScopeService
+
+<PageTitle>Business Scope</PageTitle>
+
+<h1>Business Scope</h1>
+
+<Table TItem="BizEntityItem" Items="@Items"
+	   IsMultipleSelect=true IsStriped="true" IsBordered="true"
+	   ShowToolbar="true" ShowDefaultButtons=false ShowRefresh=false>
+	<TableToolbarTemplate>
+		<TableToolbarButton TItem="BizEntityItem" Color="Color.Primary" Icon="fa fa-fw fa-edit" Text="Select Product ..."
+							OnClickCallback="@ShowSelectProductDialog" />
+	</TableToolbarTemplate>
+	<TableColumns>
+		<TableColumn @bind-Field="@context.Name" />
+	</TableColumns>
+	<DetailRowTemplate>
+		<Table TItem="BizScopeItem" @ref="tableDetail"
+			   Items="@context.Scopes"
+			   IsBordered="true">
+			<TableColumns Context="scope">
+				<TableColumn @bind-Field="@scope.ProductName" />
+			</TableColumns>
+		</Table>
+	</DetailRowTemplate>
+</Table>
+
+<Modal @ref="dialogSelectProduct">
+	<ModalDialog Title="Select Product" IsCentered="true">
+		<BodyTemplate>
+			<Table TItem="ProductItem" Items="@ProductItems"
+				   @bind-SelectedRows="@SelectedProducts"
+				   IsStriped="true" ClickToSelect="true" IsMultipleSelect="true"
+				   HeaderStyle="TableHeaderStyle.Light">
+				<TableColumns>
+					<TableColumn @bind-Field="@context.Name" />
+				</TableColumns>
+			</Table>
+		</BodyTemplate>
+		<FooterTemplate>
+			<Button Text="确定" Icon="fa fa-check-square-o" OnClick="@OnConfirm" />
+		</FooterTemplate>
+	</ModalDialog>
+</Modal>
+
+@code {
+	[NotNull]
+	private Table<BizScopeItem> tableDetail;
+
+	[NotNull]
+	private Modal? dialogSelectProduct;
+
+	[NotNull]
+	private Modal? dialogSelectBizEntity;
+
+	[NotNull]
+	private List<BizEntityItem> Items { get; set; } = new List<BizEntityItem>();
+
+	[NotNull]
+	private List<ProductItem> ProductItems { get; set; } = new List<ProductItem>();
+
+	[NotNull]
+	private List<ProductItem> SelectedProducts { get; set; } = new List<ProductItem>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		await OnRefresh();
+	}
+
+	private async Task OnRefresh()
+	{
+		Items = await bizScopeService.GetBizEntitiesAsync();
+		ProductItems = await productService.GetProductsAsync();
+	}
+
+	private BizEntityItem SelectedBizEntityItem;
+	private async Task ShowSelectProductDialog(IEnumerable<BizEntityItem> items)
+	{
+		var bizEntities = items.ToList();
+		if (bizEntities.Count == 0 || bizEntities.Count > 1) return;
+		SelectedBizEntityItem = bizEntities[0];
+		await dialogSelectProduct.Toggle();
+	}
+
+	private async Task ShowAddBizEntityDialog(IEnumerable<BizEntityItem> items)
+	{
+		await dialogSelectBizEntity.Toggle();
+	}
+
+	private async Task OnConfirm()
+	{
+		await dialogSelectProduct.Toggle();
+		var items = new List<BizScopeItem>();
+		foreach (var product in SelectedProducts)
+		{
+			items.Add(new BizScopeItem
+				{
+					ProductId = product.Id,
+					ProductName = product.Name,
+				});
+		};
+		SelectedBizEntityItem.Scopes = items;
+		await bizScopeService.SaveScopesAsync(SelectedBizEntityItem);
+	}
+}

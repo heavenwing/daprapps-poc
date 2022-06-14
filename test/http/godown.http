@@ -1,0 +1,119 @@
+### app ApplicationOrder/Create
+POST http://localhost:8083/api/ApplicationOrder/Create
+Content-Type: application/json
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "providerId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3",
+    "buyerId":"DD5C828A-C817-48E2-A044-571D139D8761",
+    "details":[
+        {
+            "productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+            "productAmount":100
+        }
+    ]
+}
+
+### testclient-dapr ApplicationOrder/Create
+POST http://localhost:3590/v1.0/invoke/godown/method/api/ApplicationOrder/Create
+Content-Type: application/json
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "providerId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3",
+    "buyerId":"DD5C828A-C817-48E2-A044-571D139D8761",
+    "details":[
+        {
+            "productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+            "productAmount":100
+        }
+    ]
+}
+
+### gateway-dapr ApplicationOrder/Create
+POST http://localhost:8091/api/godown/ApplicationOrder/Create
+Content-Type: application/json
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "providerId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3",
+    "buyerId":"DD5C828A-C817-48E2-A044-571D139D8761",
+    "details":[
+        {
+            "productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+            "productAmount":100
+        }
+    ]
+}
+
+### gateway-dapr ApplicationOrder/Load
+POST http://localhost:8091/api/godown/ApplicationOrder/Load
+Content-Type: application/json
+
+{
+    "id":"52ba70ba-89f9-415d-8ff1-f9941e3dc924"
+}
+
+### gateway-dapr ApplicationOrder/CheckLimitation
+POST http://localhost:8091/api/godown/ApplicationOrder/CheckLimitation
+Content-Type: application/json
+
+{
+    "id":"52ba70ba-89f9-415d-8ff1-f9941e3dc924"
+}
+
+### gateway-dapr ApplicationOrder/Complete
+POST http://localhost:8091/api/godown/ApplicationOrder/Complete
+Content-Type: application/json
+
+{
+    "id":"52ba70ba-89f9-415d-8ff1-f9941e3dc924"
+}
+
+### gateway-dapr ReceiptOrder/Create
+POST http://localhost:8091/api/godown/ReceiptOrder/Create
+Content-Type: application/json
+
+{
+    "applicationOrderId":"52ba70ba-89f9-415d-8ff1-f9941e3dc924",
+    "receiptorId":"DBF03A83-BEE9-4D8F-9E9F-2AF197C89FCF",
+    "details":[
+        {
+            "productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+            "productAmount":10
+        }
+    ]
+}
+
+### gateway-dapr ReceiptOrder/Load
+POST http://localhost:8091/api/godown/ReceiptOrder/Load
+Content-Type: application/json
+
+{
+    "id":"821b786a-cbec-4218-b064-7d45c5592c83"
+}
+
+### gateway-dapr StorageOrder/Create
+POST http://localhost:8091/api/godown/StorageOrder/Create
+Content-Type: application/json
+
+{
+    "receiptOrderId":"821b786a-cbec-4218-b064-7d45c5592c83",
+    "puttorId":"DBF03A83-BEE9-4D8F-9E9F-2AF197C89FCF",
+    "warehouseId":"84574161-2F4D-4894-A8B6-ABB980591990",
+    "details":[
+        {
+            "productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+            "productAmount":10,
+            "binlocationId":"9A00D5D8-84DB-43D5-9B1A-3536C0219F45"
+        }
+    ]
+}
+
+### gateway-dapr StorageOrder/Load
+POST http://localhost:8091/api/godown/StorageOrder/Load
+Content-Type: application/json
+
+{
+    "id":"821b786a-cbec-4218-b064-7d45c5592c83"
+}

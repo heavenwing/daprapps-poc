@@ -1,0 +1,52 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: poc-inventory
+#   namespace: poc
+#   labels:
+#     app.kubernetes.io/name: inventory
+#     app.kubernetes.io/part-of: poc
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - port: 8080
+#     targetPort: 8084
+#   selector:
+#     app: poc-inventory
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-inventory
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-inventory
+  template:
+    metadata:
+      labels:
+        app: poc-inventory
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "inventory"
+        dapr.io/app-port: "8084"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-inventory
+        image: {{acraddress}}/daprapps-poc-inventory:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8084
+        env:
+        - name: InventoryStoreDatabase__ConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-MongoConnection
+        - name: InventoryStoreDatabase__DatabaseName
+          value: InventoryStore
+        - name: InventoryStoreDatabase__WarehousesCollectionName
+          value: Warehouses          

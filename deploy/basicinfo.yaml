@@ -1,0 +1,75 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: poc-basicinfo
+#   namespace: poc
+#   labels:
+#     app.kubernetes.io/name: basicinfo
+#     app.kubernetes.io/part-of: poc
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - port: 8080
+#     targetPort: 8081
+#   selector:
+#     app: poc-basicinfo
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-basicinfo
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-basicinfo
+  template:
+    metadata:
+      labels:
+        app: poc-basicinfo
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "basicinfo"
+        dapr.io/app-port: "8081"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-basicinfo
+        image: {{acraddress}}/daprapps-poc-basicinfo:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: DBURL1
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-conn-mdm_product
+        - name: DBUSER1
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-username
+        - name: DBPWD1
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-password
+        - name: DBURL2
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-conn-mdm_company_legacy
+        - name: DBUSER2
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-username
+        - name: DBPWD2
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-mssql-password
+        - name: PROVIDER_HOST
+          value: https://daprapps-old.azurewebsites.net

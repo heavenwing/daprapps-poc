@@ -1,0 +1,197 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "CheckLimitation": {
+                "inputs": {
+                    "body": {
+                        "id": "@triggerBody()?['id']"
+                    },
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "method": "POST",
+                    "uri": "http://localhost:3500/v1.0/invoke/godown/method/api/ApplicationOrder/CheckLimitation"
+                },
+                "runAfter": {
+                    "UntilCheckBranchApproval": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "CompleteApplicationOrder": {
+                "inputs": {
+                    "body": {
+                        "id": "@triggerBody()?['id']"
+                    },
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "method": "POST",
+                    "uri": "http://localhost:3500/v1.0/invoke/godown/method/api/ApplicationOrder/Complete"
+                },
+                "runAfter": {
+                    "IfExceedLimitation": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "CreateBranchApproval": {
+                "inputs": {
+                    "body": {
+                        "id": "@{triggerBody()?['id']}",
+                        "isHead": false
+                    },
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "method": "POST",
+                    "uri": "http://localhost:3500/v1.0/invoke/approval/method/api/Todo/CreateGodownApplicationApproval"
+                },
+                "runAfter": {},
+                "type": "Http"
+            },
+            "IfExceedLimitation": {
+                "actions": {
+                    "CreateHeadApproval": {
+                        "inputs": {
+                            "body": {
+                                "id": "@{triggerBody()?['id']}",
+                                "isHead": true
+                            },
+                            "headers": {
+                                "Content-Type": "application/json"
+                            },
+                            "method": "POST",
+                            "uri": "http://localhost:3500/v1.0/invoke/approval/method/api/Todo/CreateGodownApplicationApproval"
+                        },
+                        "runAfter": {},
+                        "type": "Http"
+                    },
+                    "UntilCheckHeadApproval": {
+                        "actions": {
+                            "CheckHeadApproval": {
+                                "inputs": {
+                                    "body": {
+                                        "id": "@{body('CreateHeadApproval')['id']}"
+                                    },
+                                    "headers": {
+                                        "Content-Type": "application/json"
+                                    },
+                                    "method": "POST",
+                                    "uri": "http://localhost:3500/v1.0/invoke/approval/method/api/Todo/Check"
+                                },
+                                "runAfter": {
+                                    "DelayCheckHeadApproval": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "Http"
+                            },
+                            "DelayCheckHeadApproval": {
+                                "inputs": {
+                                    "interval": {
+                                        "count": 1,
+                                        "unit": "Minute"
+                                    }
+                                },
+                                "runAfter": {},
+                                "type": "Wait"
+                            }
+                        },
+                        "expression": "@equals(body('CheckHeadApproval')['complete'], true)",
+                        "limit": {
+                            "count": 60,
+                            "timeout": "PT1H"
+                        },
+                        "runAfter": {
+                            "CreateHeadApproval": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "Until"
+                    }
+                },
+                "expression": {
+                    "and": [
+                        {
+                            "equals": [
+                                "@body('CheckLimitation')['exceed']",
+                                "@true"
+                            ]
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "CheckLimitation": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "If"
+            },
+            "UntilCheckBranchApproval": {
+                "actions": {
+                    "CheckBranchApproval": {
+                        "inputs": {
+                            "body": {
+                                "id": "@{body('CreateBranchApproval')['id']}"
+                            },
+                            "headers": {
+                                "Content-Type": "application/json"
+                            },
+                            "method": "POST",
+                            "uri": "http://localhost:3500/v1.0/invoke/approval/method/api/Todo/Check"
+                        },
+                        "runAfter": {
+                            "DelayCheckBranchApproval": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "Http"
+                    },
+                    "DelayCheckBranchApproval": {
+                        "inputs": {
+                            "interval": {
+                                "count": 1,
+                                "unit": "Minute"
+                            }
+                        },
+                        "runAfter": {},
+                        "type": "Wait"
+                    }
+                },
+                "expression": "@equals(body('CheckBranchApproval')['complete'], true)",
+                "limit": {
+                    "count": 1008,
+                    "timeout": "PT1H"
+                },
+                "runAfter": {
+                    "CreateBranchApproval": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Until"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    }
+}

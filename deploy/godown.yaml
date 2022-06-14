@@ -1,0 +1,42 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: poc-godown
+#   namespace: poc
+#   labels:
+#     app.kubernetes.io/name: godown
+#     app.kubernetes.io/part-of: poc
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - port: 8080
+#     targetPort: 8083
+#   selector:
+#     app: poc-godown
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-godown
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-godown
+  template:
+    metadata:
+      labels:
+        app: poc-godown
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "godown"
+        dapr.io/app-port: "8083"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-godown
+        image: {{acraddress}}/daprapps-poc-godown:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8083

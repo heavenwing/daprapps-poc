@@ -1,0 +1,114 @@
+@applicationOrderId={{createApplicationOrder.response.body.$.id}}
+@branchApprovalTodoId={{createBranchApprovalTodo.response.body.$.id}}
+@headApprovalTodoId={{createHeadApprovalTodo.response.body.$.id}}
+
+### Create ApplicationOrder
+# @name createApplicationOrder
+POST http://localhost:3590/v1.0/invoke/godown/method/api/ApplicationOrder/Create
+Content-Type: application/json
+
+{
+    "companyId":"922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+    "providerId":"A723D25E-7FFC-4D82-A719-BC367BDC70C3",
+    "buyerId":"{{$guid}}",
+    "details":[
+        {
+            "productId":"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+            "productAmount":100
+        }
+    ]
+}
+
+### Create BranchApproval
+# @name createBranchApprovalTodo
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/CreateGodownApplicationApproval
+Content-Type: application/json
+
+{
+    "id":"{{applicationOrderId}}",
+    "isHead": false
+}
+
+### Approve BranchApproval
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/Approve
+Content-Type: application/json
+
+{
+    "ids":["{{branchApprovalTodoId}}"]
+}
+
+### Check BranchApproval
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/Check
+Content-Type: application/json
+
+{
+    "id":"{{branchApprovalTodoId}}"
+}
+
+### CheckLimitation for ApplicationOrder
+POST http://localhost:3590/v1.0/invoke/godown/method/api/ApplicationOrder/CheckLimitation
+Content-Type: application/json
+
+{
+    "id":"{{applicationOrderId}}"
+}
+
+### Create HeadApproval
+# @name createHeadApprovalTodo
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/CreateGodownApplicationApproval
+Content-Type: application/json
+
+{
+    "id":"{{applicationOrderId}}",
+    "isHead": true
+}
+
+### Approve BranchApproval
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/Approve
+Content-Type: application/json
+
+{
+    "ids":["{{headApprovalTodoId}}"]
+}
+
+### Check HeadApproval
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/Check
+Content-Type: application/json
+
+{
+    "id":"{{headApprovalTodoId}}"
+}
+
+### Complete ApplicationOrder
+POST http://localhost:3590/v1.0/invoke/godown/method/api/ApplicationOrder/Complete
+Content-Type: application/json
+
+{
+    "id":"{{applicationOrderId}}"
+}
+
+### Load ApplicationOrder
+POST http://localhost:3590/v1.0/invoke/godown/method/api/ApplicationOrder/Load
+Content-Type: application/json
+
+{
+    "id":"{{applicationOrderId}}"
+}
+
+## Debug workflows
+
+### Check Approval
+POST http://localhost:3520/v1.0/invoke/approval/method/api/Todo/Check
+Content-Type: application/json
+
+{
+    "id":"52a1fb04-22dd-48a9-8a81-1323986e9476"
+}
+
+### Approve Approval
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/Approve
+Content-Type: application/json
+
+{
+    "ids":["a48a2e79-8cd1-4763-9a44-608f1ab4bb11"]
+}

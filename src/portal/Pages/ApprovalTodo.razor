@@ -1,0 +1,54 @@
+﻿@page "/approvaltodo"
+@using System.Diagnostics.CodeAnalysis
+@using portal.GatewayServices
+@using portal.ViewModels
+
+@inject ApprovalTodoService gatewayService
+
+<PageTitle>Approval Todo</PageTitle>
+
+<h1>Approval Todo</h1>
+
+<Table TItem="TodoItem" @ref="table"
+	   IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+	   ShowToolbar="true" ShowDefaultButtons=false ShowExtendButtons="true"
+	   OnQueryAsync="@OnQueryAsync">
+	<TableToolbarTemplate>
+		<TableToolbarButton TItem="TodoItem" Color="Color.Danger" Icon="fa fa-fw fa-edit" Text="审批" OnClickCallback="@OnApprove" />
+	</TableToolbarTemplate>
+	<TableColumns>
+		<TableColumn @bind-Field="@context.Title" />
+		<TableColumn @bind-Field="@context.CompanyName" />
+	</TableColumns>
+</Table>
+
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		await OnRefresh();
+	}
+
+	Table<TodoItem> table;
+
+	[NotNull]
+	private List<TodoItem>? Items { get; set; }
+
+	private Task<QueryData<TodoItem>> OnQueryAsync(QueryPageOptions options)
+	{
+		var items = Items?.ToList();
+		return Task.FromResult(new QueryData<TodoItem>
+			{
+				Items = items ?? new List<TodoItem>(),
+			});
+	}
+
+	private async Task OnRefresh() => Items = await gatewayService.GetTodosAsync();
+
+	private async Task OnApprove(IEnumerable<TodoItem> items)
+	{
+		await gatewayService.ApproveTodosAsync(items);
+		items.ToList().ForEach(foo => Items.Remove(foo));
+		await table.QueryAsync();
+	}
+}

@@ -1,0 +1,53 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: poc-approval
+#   namespace: poc
+#   labels:
+#     app.kubernetes.io/name: approval
+#     app.kubernetes.io/part-of: poc
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - port: 8080
+#     targetPort: 8085
+#   selector:
+#     app: poc-approval
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-approval
+  namespace: poc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poc-approval
+  template:
+    metadata:
+      labels:
+        app: poc-approval
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "approval"
+        dapr.io/app-port: "8085"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-approval
+        image: {{acraddress}}/daprapps-poc-approval:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8085
+        env:
+        # - name: CUSTOMCONNSTR_PgsqlConnection
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: dbconn-secret
+        #       key: vm-PgsqlConnection
+        - name: CUSTOMCONNSTR_MssqlConnection
+          valueFrom:
+            secretKeyRef:
+              name: dbconn-secret
+              key: azure-MssqlConnection              

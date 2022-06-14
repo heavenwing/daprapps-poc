@@ -1,0 +1,148 @@
+### app Product/List
+POST http://localhost:8081/api/Product/List
+
+### testclient-dapr Product/List
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Product/List
+
+{}
+
+### gateway-http Product/List
+POST http://localhost:8091/api/basicinfo/Product/List
+
+{}
+
+### app Product/Add
+POST http://localhost:8081/api/Product/Add
+
+{
+    "id":"0F45D369-22E6-4AC7-A83C-0F4B122D0CAC",
+    "name":"Product xxx",
+    "isExempted":false
+}
+
+### testclient-dapr Product/Add
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Product/Add
+
+{
+    "id":"0F45D369-22E6-4AC7-A83C-0F4B122D0CAC",
+    "name":"Product xxx",
+    "isExempted":false
+}
+
+### app Product/Update
+POST http://localhost:8081/api/Product/Update
+
+{
+    "id":"{0F45D369-22E6-4AC7-A83C-0F4B122D0CAC}",
+    "name":"Product xxx",
+    "isExempted":false
+}
+
+### testclient-dapr Product/Update
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Product/Update
+
+{
+    "id":"{0F45D369-22E6-4AC7-A83C-0F4B122D0CAC}",
+    "name":"Product xxx",
+    "isExempted":false
+}
+
+### app Product/GetNames
+POST http://localhost:8081/api/Product/GetNames
+
+{
+    "ids":
+    [
+        "244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+        "AB16283B-FE6C-4E6A-8BA2-04497AD474D0"
+    ]
+}
+
+### testclient-dapr Product/GetNames
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Product/GetNames
+
+{
+    "ids":
+    [
+        "244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+        "AB16283B-FE6C-4E6A-8BA2-04497AD474D0"
+    ]
+}
+
+### app Company/List
+POST http://localhost:8081/api/Company/List
+
+### testclient-dapr Company/List
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Company/List
+
+{}
+
+### gateway-http Company/List
+POST http://localhost:8091/api/basicinfo/Company/List
+
+{}
+
+### app Company/GetNames
+POST http://localhost:8081/api/Company/GetNames
+
+{
+    "ids":
+    [
+        "922FCA8E-87A5-41D1-BF39-AD9F14F2A947",
+        "6C5062F3-B7EA-40B1-A483-515507706DC4"
+    ]
+}
+
+### testclient-dapr Company/GetNames
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Company/GetNames
+
+{
+    "ids":
+    [
+        "244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0",
+        "AB16283B-FE6C-4E6A-8BA2-04497AD474D0"
+    ]
+}
+
+### app Provider/List
+POST http://localhost:8081/api/Provider/List
+
+### testclient-dapr Provider/List
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Provider/List
+
+{}
+
+### gateway-http Provider/List
+POST http://localhost:8091/api/basicinfo/Provider/List
+
+{}
+
+### app Provider/GetNames
+POST http://localhost:8081/api/Provider/GetNames
+
+{
+    "ids":
+    [
+        "A723D25E-7FFC-4D82-A719-BC367BDC70C3"
+    ]
+}
+
+### testclient-dapr Provider/GetNames
+POST http://localhost:3590/v1.0/invoke/basicinfo/method/api/Provider/GetNames
+
+{
+    "ids":
+    [
+        "A723D25E-7FFC-4D82-A719-BC367BDC70C3"
+    ]
+}
+
+### gateway-http Provider/GetNames
+POST http://localhost:8091/api/basicinfo/Provider/GetNames
+
+{
+    "ids":
+    [
+        "A723D25E-7FFC-4D82-A719-BC367BDC70C3"
+    ]
+}

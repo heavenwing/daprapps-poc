@@ -1,0 +1,25 @@
+### app Todo/List
+POST http://localhost:8085/api/Todo/List
+Content-Type: application/json
+
+{
+  "companyId": "00000000-0000-0000-0000-000000000000"
+}
+
+### app Todo/CreateGodownApplicationApproval
+POST http://localhost:8085/api/Todo/CreateGodownApplicationApproval
+Content-Type: application/json
+
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "isHead": false
+}
+
+### testclient-dapr Todo/CreateGodownApplicationApproval
+POST http://localhost:3590/v1.0/invoke/approval/method/api/Todo/CreateGodownApplicationApproval
+Content-Type: application/json
+
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "isHead": false
+}

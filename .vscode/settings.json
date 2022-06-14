@@ -1,0 +1,25 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "local postgres",
+            "database": "postgres",
+            "username": "postgres",
+            "password": "passpocword"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "local postgres jfpocapproval",
+            "database": "jfpocapproval",
+            "username": "postgres",
+            "password": "passpocword"
+        }
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
+}

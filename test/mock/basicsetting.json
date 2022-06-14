@@ -1,0 +1,192 @@
+{
+  "uuid": "289a7320-62fc-4d03-b48a-b1fbe51f8965",
+  "lastMigration": 19,
+  "name": "POC basicsetting API",
+  "endpointPrefix": "api",
+  "latency": 0,
+  "port": 8082,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "b40c6898-c6f0-4127-a74c-5fba224b47dd",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "BizScope/List",
+      "responses": [
+        {
+          "uuid": "1d96cc21-a217-44c8-af70-258b71e66320",
+          "body": "{\n  \"items\": [\n    {\n      \"bizEntityId\": \"922FCA8E-87A5-41D1-BF39-AD9F14F2A947\",\n      \"productIds\": [\n        \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\",\n        \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\"\n      ]\n    },\n    {\n      \"bizEntityId\": \"6C5062F3-B7EA-40B1-A483-515507706DC4\",\n      \"productIds\": [\n        \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\",\n        \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\"\n      ]\n    },\n    {\n      \"bizEntityId\": \"A723D25E-7FFC-4D82-A719-BC367BDC70C3\",\n      \"productIds\": [\n        \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\",\n        \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\"\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "a92b02c9-61b2-4962-b522-17d1b3e0418f",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "BizScope/Save",
+      "responses": [
+        {
+          "uuid": "c523b575-201f-4c56-a098-425c3f0d47c9",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "7924fbb7-bdfd-4f03-a271-1120b11cfd64",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "BizScope/GetAllowable",
+      "responses": [
+        {
+          "uuid": "10e8ec27-676e-40e2-9a61-a4ad5bf07def",
+          "body": "{\n  \"items\": [\n    \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\",\n    \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\"\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "8d069b5d-bdf1-4e46-bf3f-1ef0260b8386",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Limitation/List",
+      "responses": [
+        {
+          "uuid": "468e5136-e695-42eb-a0f5-68645899d304",
+          "body": "{\n  \"items\": [\n    {\n      \"companyId\": \"922FCA8E-87A5-41D1-BF39-AD9F14F2A947\",\n      \"details\": [\n        {\n          \"productId\": \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\",\n          \"amount\": 100\n        },\n        {\n          \"productId\": \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\",\n          \"amount\": 1000\n        }\n      ]\n    },\n    {\n      \"companyId\": \"6C5062F3-B7EA-40B1-A483-515507706DC4\",\n      \"details\": [\n        {\n          \"productId\": \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\",\n          \"amount\": 1000\n        }\n      ]\n    }\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "95b04c4e-c1d8-41a2-a76a-eb56e2977355",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Limitation/Save",
+      "responses": [
+        {
+          "uuid": "04f92154-ad8d-435c-b38e-2905a2cc8f5a",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "15877ec2-1f7d-4387-8a87-3b0c00498871",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "Limitation/GetAmount",
+      "responses": [
+        {
+          "uuid": "8734178a-3cc3-41fd-b09a-fb45f0b18c21",
+          "body": "{\n  \"items\": {\n    \"244B34AD-695B-4FDF-8E0F-95DF2E6C4CF0\": 1,\n    \"AB16283B-FE6C-4E6A-8BA2-04497AD474D0\": 1\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  }
+}

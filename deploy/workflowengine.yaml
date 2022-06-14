@@ -1,0 +1,62 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: poc-workflowengine
+#   namespace: poc
+#   labels:
+#     app.kubernetes.io/name: workflowengine
+#     app.kubernetes.io/part-of: poc
+# spec:
+#   type: ClusterIP
+#   ports:
+#   - port: 8080
+#     targetPort: 8200
+#   selector:
+#     app: poc-workflowengine
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-workflowengine
+  namespace: poc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poc-workflowengine
+  template:
+    metadata:
+      labels:
+        app: poc-workflowengine
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "workflows"
+        dapr.io/app-port: "8200"
+        dapr.io/app-protocol: "grpc"
+        dapr.io/config: "otel"
+    spec:
+      containers:
+      - name: poc-workflowengine
+        image: {{acraddress}}/daprapps-poc-workflowengine:{{imagetag}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8200
+        env:
+        - name: STORAGE_ACCOUNT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: storage-secret
+              key: accountKey
+        - name: STORAGE_ENDPOINT_SUFFIX
+          value: core.chinacloudapi.cn
+        - name: STORAGE_ACCOUNT_NAME
+          value: zygdemo                  
+        command: ["dotnet"]
+        args: ["app/workflowengine.dll", "--workflows-path", "/workflows"]
+        volumeMounts:
+        - name: workflows
+          mountPath: /workflows
+      volumes:
+        - name: workflows
+          configMap:
+            name: workflows
