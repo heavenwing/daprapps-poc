@@ -1,10 +1,9 @@
 name: approval-image-ci
 
-on: 
-  workflow_dispatch:
-  push:
-    branches: 
-    - "main"
+on: workflow_dispatch
+  # push:
+  #   branches: 
+  #   - "main"
 
 jobs:
   docker_login_build_push:
