@@ -19,6 +19,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
+          context: .
           file: ./dockerfiles/approval.Dockerfile
           push: true
           tags: heavenwing/daprapps-poc-approval:latest
