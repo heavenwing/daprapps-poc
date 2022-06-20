@@ -1,6 +1,7 @@
 name: approval-image-ci
 
-on:
+on: 
+  workflow_dispatch:
   push:
     branches: 
     - "main"
@@ -16,10 +17,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./dockerfiles/approval.Dockerfile
-          push: true
-          tags: heavenwing/daprapps-poc-approval:latest
+        name: Build the Docker image
+        uses: actions/checkout@v3
+        run: docker build . --file ./dockerfiles/approval.Dockerfile --tag heavenwing/daprapps-poc-approval:latest
+      -
+        name: Push the Docker image
+        shell: pwsh
+        run: docker push heavenwing/daprapps-poc-approval:latest
