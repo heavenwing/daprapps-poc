@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: poc-basicinfo
-        image: {{acraddress}}/daprapps-poc-basicinfo:{{imagetag}}
+        image: ${CR_URL}$/daprapps-poc-basicinfo:${IMAGE_TAG}$
         imagePullPolicy: Always
         ports:
         - containerPort: 8081

@@ -3,7 +3,7 @@ FROM adoptopenjdk:11-jre
 RUN mkdir -p /jflog
 RUN mkdir -p /app
 
-ADD ./target/basicinfo-0.0.1-SNAPSHOT.jar /app/
+ADD /src/basicinfo/target/basicinfo-0.0.1-SNAPSHOT.jar /app/
 
 ENV ENVPROFILE="dev"
 #ENV SRVPWD="" -Dspring.cloud.config.password=${SRVPWD}
@@ -18,11 +18,10 @@ ENV DBPWD2=""
 ENV JAVA_OPTS=""
 ENV PROVIDER_HOST=""
 
-ENTRYPOINT ["sh","-c","java -jar $JAVA_OPTS -Dspring.profiles.active=${ENVPROFILE} -Dspring.application.name=${SVC_NAME} -Dspring.datasource.primary.jdbc-url=${DBURL1} -Dspring.datasource.primary.username=${DBUSER1} -Dspring.datasource.primary.password=${DBPWD1} -Dspring.datasource.secondary.jdbc-url=${DBURL2} -Dspring.datasource.secondary.username=${DBUSER2} -Dspring.datasource.secondary.password=${DBPWD2} -Dprovider.service.host=${PROVIDER_HOST} /app/basicinfo-0.0.1-SNAPSHOT.jar"]
-
 EXPOSE $SVC_PORT
 
-MAINTAINER chen
+ENTRYPOINT ["sh","-c","java -jar $JAVA_OPTS -Dspring.profiles.active=${ENVPROFILE} -Dspring.application.name=${SVC_NAME} -Dspring.datasource.primary.jdbc-url=${DBURL1} -Dspring.datasource.primary.username=${DBUSER1} -Dspring.datasource.primary.password=${DBPWD1} -Dspring.datasource.secondary.jdbc-url=${DBURL2} -Dspring.datasource.secondary.username=${DBUSER2} -Dspring.datasource.secondary.password=${DBPWD2} -Dprovider.service.host=${PROVIDER_HOST} /app/basicinfo-0.0.1-SNAPSHOT.jar"]
+
 # build in dockerfile directory
 # docker build -t daprapps-basicinfo/daprapps-basicinfo-docker-file:0.0.1 .
 
