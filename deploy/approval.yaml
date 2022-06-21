@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: poc-approval
-        image: {{acraddress}}/daprapps-poc-approval:{{imagetag}}
+        image: ${CR_URL}$/daprapps-poc-approval:${IMAGE_TAG}$
         imagePullPolicy: Always
         ports:
         - containerPort: 8085
