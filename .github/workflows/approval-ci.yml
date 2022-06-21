@@ -36,7 +36,7 @@ jobs:
       with:
         tokenPrefix: "${"
         tokenSuffix: "}$"
-        files: "/deploy/${{ env.PROJECT_NAME }}.yaml"
+        files: "deploy/${{ env.PROJECT_NAME }}.yaml"
       env:
         CR_URL: ${{ secrets.DOCKERHUB_USERNAME }}
         IMAGE_TAG: ${{ github.run_number }}
