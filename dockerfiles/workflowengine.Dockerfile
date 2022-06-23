@@ -8,7 +8,6 @@ EXPOSE 8200
 # USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-COPY /src/AppModels/ /src/AppModels/
 COPY /src/workflowengine/ /src/workflowengine/
 WORKDIR "/src/workflowengine"
 RUN dotnet restore "workflowengine.csproj"
