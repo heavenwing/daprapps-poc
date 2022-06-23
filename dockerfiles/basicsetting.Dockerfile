@@ -3,7 +3,7 @@ FROM adoptopenjdk:11-jre
 RUN mkdir -p /jflog
 RUN mkdir -p /app
 
-ADD ./target/basicsetting-0.0.1-SNAPSHOT.jar /app/
+ADD /src/basicsetting/target/basicsetting-0.0.1-SNAPSHOT.jar /app/
 
 ENV ENVPROFILE="dev"
 #ENV SRVPWD="" -Dspring.cloud.config.password=${SRVPWD}
