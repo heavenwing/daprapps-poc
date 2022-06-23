@@ -10,11 +10,10 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
-WORKDIR /src
-COPY ./AppModels/. ./AppModels/.
-COPY ./inventory/. ./inventory/.
-RUN dotnet restore "inventory/inventory.csproj"
+COPY /src/AppModels/ /src/AppModels/
+COPY /src/inventory/ /src/inventory/
 WORKDIR "/src/inventory"
+RUN dotnet restore "inventory.csproj"
 RUN dotnet build "inventory.csproj" -c Release -o /app/build
 
 FROM build AS publish

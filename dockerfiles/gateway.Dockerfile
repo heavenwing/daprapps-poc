@@ -10,11 +10,10 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
-WORKDIR /src
-COPY ./AppModels/. ./AppModels/.
-COPY ./gateway/. ./gateway/.
-RUN dotnet restore "gateway/gateway.csproj"
+COPY /src/AppModels/ /src/AppModels/
+COPY /src/gateway/ /src/gateway/
 WORKDIR "/src/gateway"
+RUN dotnet restore "gateway.csproj"
 RUN dotnet build "gateway.csproj" -c Release -o /app/build
 
 FROM build AS publish

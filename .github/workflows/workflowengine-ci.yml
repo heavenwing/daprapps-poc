@@ -1,4 +1,4 @@
-name: approval-ci
+name: workflowengine-ci
 
 on: 
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches: 
     - "main"
     paths:
-    - "/src/approval/**"
+    - "/src/workflowengine/**"
     
 env:
-  PROJECT_NAME: approval
+  PROJECT_NAME: workflowengine
 
 jobs:
   Build:

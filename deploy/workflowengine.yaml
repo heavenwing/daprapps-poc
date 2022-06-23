@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: poc-workflowengine
-        image: {{acraddress}}/daprapps-poc-workflowengine:{{imagetag}}
+        image: ${CR_URL}$/daprapps-poc-workflowengine:${IMAGE_TAG}$
         imagePullPolicy: Always
         ports:
         - containerPort: 8200

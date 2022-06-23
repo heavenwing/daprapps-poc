@@ -10,11 +10,10 @@ RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /
 USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
-# WORKDIR /src
 COPY /src/AppModels/ /src/AppModels/
 COPY /src/approval/ /src/approval/
-RUN dotnet restore "/src/approval/approval.csproj"
 WORKDIR "/src/approval"
+RUN dotnet restore "approval.csproj"
 RUN dotnet build "approval.csproj" -c Release -o /app/build
 
 FROM build AS publish

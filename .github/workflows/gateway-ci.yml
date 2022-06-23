@@ -1,4 +1,4 @@
-name: approval-ci
+name: gateway-ci
 
 on: 
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches: 
     - "main"
     paths:
-    - "/src/approval/**"
+    - "/src/gateway/**"
     
 env:
-  PROJECT_NAME: approval
+  PROJECT_NAME: gateway
 
 jobs:
   Build:

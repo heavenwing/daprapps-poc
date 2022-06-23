@@ -14,11 +14,10 @@ ENV DBUSER=""
 ENV DBPWD=""
 ENV JAVA_OPTS=""
 
-ENTRYPOINT ["sh","-c","java -jar $JAVA_OPTS -Dspring.profiles.active=${ENVPROFILE} -Dspring.application.name=${SVC_NAME} -Dspring.datasource.url=${DBURL} -Dspring.datasource.username=${DBUSER} -Dspring.datasource.password=${DBPWD} /app/basicsetting-0.0.1-SNAPSHOT.jar"]
-
 EXPOSE $SVC_PORT
 
-MAINTAINER chen
+ENTRYPOINT ["sh","-c","java -jar $JAVA_OPTS -Dspring.profiles.active=${ENVPROFILE} -Dspring.application.name=${SVC_NAME} -Dspring.datasource.url=${DBURL} -Dspring.datasource.username=${DBUSER} -Dspring.datasource.password=${DBPWD} /app/basicsetting-0.0.1-SNAPSHOT.jar"]
+
 # build in dockerfile directory
 # docker build -t daprapps-basicsetting/daprapps-basicsetting-docker-file:0.0.1 .
 

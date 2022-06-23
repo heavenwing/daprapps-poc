@@ -1,4 +1,4 @@
-name: approval-ci
+name: inventory-ci
 
 on: 
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches: 
     - "main"
     paths:
-    - "/src/approval/**"
+    - "/src/inventory/**"
     
 env:
-  PROJECT_NAME: approval
+  PROJECT_NAME: inventory
 
 jobs:
   Build:

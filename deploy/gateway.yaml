@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: poc-gateway
-        image: {{acraddress}}/daprapps-poc-gateway:{{imagetag}}
+        image: ${CR_URL}$/daprapps-poc-gateway:${IMAGE_TAG}$
         imagePullPolicy: Always
         ports:
         - containerPort: 8091

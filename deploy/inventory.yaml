@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: poc-inventory
-        image: {{acraddress}}/daprapps-poc-inventory:{{imagetag}}
+        image: ${CR_URL}$/daprapps-poc-inventory:${IMAGE_TAG}$
         imagePullPolicy: Always
         ports:
         - containerPort: 8084

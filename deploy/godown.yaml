@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: poc-godown
-        image: {{acraddress}}/daprapps-poc-godown:{{imagetag}}
+        image: ${CR_URL}$/daprapps-poc-godown:${IMAGE_TAG}$
         imagePullPolicy: Always
         ports:
         - containerPort: 8083
