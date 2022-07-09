@@ -37,32 +37,7 @@
       <plugin>
         <groupId>com.microsoft.azure</groupId>
         <artifactId>azure-webapp-maven-plugin</artifactId>
-        <version>2.2.3</version>
-        <configuration>
-          <schemaVersion>v2</schemaVersion>
-          <subscriptionId>de2491dd-5323-4ce1-97a0-7298b2057cc2</subscriptionId>
-          <resourceGroup>daprapps</resourceGroup>
-          <appName>daprapps-old</appName>
-          <pricingTier>B1</pricingTier>
-          <region>eastasia</region>
-          <appServicePlanName>ASP-daprapps-b625</appServicePlanName>
-          <appServicePlanResourceGroup>daprapps</appServicePlanResourceGroup>
-          <runtime>
-            <os>Linux</os>
-            <javaVersion>Java 11</javaVersion>
-            <webContainer>Java SE</webContainer>
-          </runtime>
-          <deployment>
-            <resources>
-              <resource>
-                <directory>${project.basedir}/target</directory>
-                <includes>
-                  <include>*.jar</include>
-                </includes>
-              </resource>
-            </resources>
-          </deployment>
-        </configuration>
+        <version>2.5.0</version>
       </plugin>
     </plugins>
   </build>
